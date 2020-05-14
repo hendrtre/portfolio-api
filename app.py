@@ -81,6 +81,38 @@ def add_portfolios():
 
     return jsonify(result)
 
+@app.route("/api/v1/portfolio/<id>", methods=["PATCH"])
+def update_portfolio(id):
+    portfolio = Portfolio.query.get(id)
+
+    new_name = request.json["name"]
+    new_description = request.json["description"]
+    new_url = request.json["url"]
+    new_category = request.json["category"]
+    new_position = request.json["position"]
+    new_thumb_image_id = request.json["thumb_image_id"]
+    new_thumb_image_url = request.json["thumb_image_url"]
+    new_banner_image_id = request.json["banner_image_id"]
+    new_banner_image_url = request.json["banner_image_url"]
+    new_logo_id = request.json["logo_id"]
+    new_logo_url = request.json ["logo_url"]
+
+    portfolio.name = new_name    
+    portfolio.description = new_description
+    portfolio.url = new_url
+    portfolio.category = new_category
+    portfolio.position = new_position
+    portfolio.thumb_image_id = new_thumb_image_id
+    portfolio.thumb_image_url = new_thumb_image_url
+    portfolio.banner_image_id = new_banner_image_id
+    portfolio.banner_image_url = new_banner_image_url
+    portfolio.logo_id = new_logo_id
+    portfolio.logo_url = new_logo_url
+
+    db.session.commit()
+    return portfolio_schema.jsonify(portfolio)
+
+# @app.route
 
 
 if __name__ == "__main__":
