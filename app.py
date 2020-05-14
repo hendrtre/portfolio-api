@@ -112,7 +112,16 @@ def update_portfolio(id):
     db.session.commit()
     return portfolio_schema.jsonify(portfolio)
 
-# @app.route
+@app.route("/api/v1/portfolio/<id>", methods=["DELETE"])
+def delete_portfolio(id):
+    portfolio = Portfolio.query.get(id)
+    db.session.delete(portfolio)
+    db.session.commit()
+    # Cloud.api.delete_resources([portfolio.thumb_image_id])
+    # Cloud.api.delete_resources([portfolio.banner_image_id])
+    # Cloud.api.delete_resources([portfolio.logo_id])
+
+    return jsonify("Portfolio Item GONE!!")
 
 
 if __name__ == "__main__":
