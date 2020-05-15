@@ -81,6 +81,15 @@ def add_portfolios():
 
     return jsonify(result)
 
+
+@app.route("/api/v1/portfolio/<id>", methods=["GET"])
+def get_portfolio_item(id):
+    portfolio_item = Portfolio.query.get(id)
+
+    print(portfolio_item.name)
+
+    return portfolio_schema.jsonify(portfolio_item)
+
 @app.route("/api/v1/portfolio/<id>", methods=["PATCH"])
 def update_portfolio(id):
     portfolio = Portfolio.query.get(id)
